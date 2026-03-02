@@ -1,8 +1,10 @@
-module Value (Value (..), value) where
+module Value (Value (..), value, tanh) where
 
 import Data.Text (Text)
 import Data.Vector (Vector)
 import Data.Vector qualified as V
+import Prelude hiding (tanh)
+import Prelude qualified
 
 data Value a = Value
     { v :: !a
@@ -60,7 +62,18 @@ data Operation
     | OpSubtract
     | OpMultiply
     | OpDivide
+    | OpTanh
     deriving stock (Show, Eq)
 
 value :: (Num a) => a -> Text -> Value a
 value v label = Value{v = v, grad = 0, prev = V.empty, label = label, op = OpNone}
+
+tanh :: (Floating a) => Value a -> Value a
+tanh v =
+    Value
+        { v = Prelude.tanh v.v
+        , grad = 0
+        , prev = V.singleton v
+        , label = "tanh of " <> v.label
+        , op = OpTanh
+        }
