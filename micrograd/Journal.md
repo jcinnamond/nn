@@ -16,3 +16,7 @@ The derived `show` implementation isn't very helpful. It would be nice to add so
 ### Improving `grad`
 
 It makes more sense to default to 1 as that is the derivitive of a value with respect to itself.
+
+### Label all the nodes
+
+I didn't have an easy way to label `a*b+c` as `d` (it derived the name from the operation and the names of the operad nodes), so I changed the way nodes are created to rely on `fromInteger` and a helper function to set the label.
