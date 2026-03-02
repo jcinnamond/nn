@@ -2,7 +2,9 @@
 
 https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ&index=1
 
-## Implementing `Value` in Haskell
+## 2026-03-02
+
+### Implementing `Value` in Haskell
 
 An implemention of the python code for `Value` in Haskell. It's slightly different because Haskell.
 
@@ -10,3 +12,7 @@ An implemention of the python code for `Value` in Haskell. It's slightly differe
 - Andrej adds methods for add and multiply (and later exponential and divide) so I implemented `Num` and `Fractional` (for divide).
 
 The derived `show` implementation isn't very helpful. It would be nice to add something to draw the graph.
+
+### Improving `grad`
+
+It makes more sense to default to 1 as that is the derivitive of a value with respect to itself.

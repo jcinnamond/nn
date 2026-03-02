@@ -19,7 +19,7 @@ instance (Num a) => Num (Value a) where
     v1 + v2 =
         Value
             { v = v1.v + v2.v
-            , grad = 0
+            , grad = 1
             , prev = V.fromList [v1, v2]
             , label = v1.label <> " + " <> v2.label
             , op = OpAdd
@@ -27,7 +27,7 @@ instance (Num a) => Num (Value a) where
     v1 - v2 =
         Value
             { v = v1.v - v2.v
-            , grad = 0
+            , grad = 1
             , prev = V.fromList [v1, v2]
             , label = v1.label <> " - " <> v2.label
             , op = OpSubtract
@@ -35,7 +35,7 @@ instance (Num a) => Num (Value a) where
     v1 * v2 =
         Value
             { v = v1.v * v2.v
-            , grad = 0
+            , grad = 1
             , prev = V.fromList [v1, v2]
             , label = v1.label <> " * " <> v2.label
             , op = OpMultiply
@@ -49,7 +49,7 @@ instance (Fractional a) => Fractional (Value a) where
     v1 / v2 =
         Value
             { v = v1.v / v2.v
-            , grad = 0
+            , grad = 1
             , prev = V.fromList [v1, v2]
             , label = v1.label <> " / " <> v2.label
             , op = OpDivide
@@ -66,13 +66,13 @@ data Operation
     deriving stock (Show, Eq)
 
 value :: (Num a) => a -> Text -> Value a
-value v label = Value{v = v, grad = 0, prev = V.empty, label = label, op = OpNone}
+value v label = Value{v = v, grad = 1, prev = V.empty, label = label, op = OpNone}
 
 tanh :: (Floating a) => Value a -> Value a
 tanh v =
     Value
         { v = Prelude.tanh v.v
-        , grad = 0
+        , grad = 1
         , prev = V.singleton v
         , label = "tanh of " <> v.label
         , op = OpTanh
