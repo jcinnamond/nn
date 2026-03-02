@@ -1,0 +1,24 @@
+cabal-version: 3.0
+name: micrograd
+version: 0.1.0.0
+license: NONE
+build-type: Simple
+extra-doc-files: Journal.md
+
+executable micrograd
+  ghc-options: -Wall
+  default-language: GHC2024
+  hs-source-dirs: app
+  main-is: Main.hs
+  default-extensions:
+    DuplicateRecordFields
+    OverloadedRecordDot
+    OverloadedStrings
+
+  other-modules:
+    Value
+
+  build-depends:
+    base ^>=4.21.0.0,
+    text,
+    vector,
