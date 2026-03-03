@@ -21,4 +21,3 @@ executable micrograd
   build-depends:
     base ^>=4.21.0.0,
     text,
-    vector,

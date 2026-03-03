@@ -20,3 +20,9 @@ It makes more sense to default to 1 as that is the derivitive of a value with re
 ### Label all the nodes
 
 I didn't have an easy way to label `a*b+c` as `d` (it derived the name from the operation and the names of the operad nodes), so I changed the way nodes are created to rely on `fromInteger` and a helper function to set the label.
+
+## 2026-03-03
+
+### Backpropogation
+
+When starting to implement the backpropogation code I was uncomfortable with assumptions about how many items are in the `prev` vector. For example, for multiplication it assumes that there are two elements in the vector, but nothing enforced this. I'd need to check, and then think about what to do with any error. Instead of this, I'd rather make it correct by construction and store the correct number of operads for each operation. This means pushing more context and more data into the operations.
