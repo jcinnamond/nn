@@ -26,3 +26,7 @@ I didn't have an easy way to label `a*b+c` as `d` (it derived the name from the 
 ### Backpropogation
 
 When starting to implement the backpropogation code I was uncomfortable with assumptions about how many items are in the `prev` vector. For example, for multiplication it assumes that there are two elements in the vector, but nothing enforced this. I'd need to check, and then think about what to do with any error. Instead of this, I'd rather make it correct by construction and store the correct number of operads for each operation. This means pushing more context and more data into the operations.
+
+### Immutable Values
+
+Implementing `backward` _kinda_ works for addition and multiplication, but there is a problem with Values being used multiple times (e.g., `b = a + a`). These are not treated as the same node -- each operad points to its own copy of the Value. This isn't what I want, so I might need to fix it with an ioref, or with an env that maps labels (or some unique id?) to Values.

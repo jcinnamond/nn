@@ -1,4 +1,4 @@
-module Value (Value, tanh, as) where
+module Value (Value, tanh, as, backward) where
 
 import Data.Text (Text)
 import Prelude hiding (tanh)
@@ -48,3 +48,20 @@ tanh v =
         , label = "tanh of " <> v.label
         , op = OpTanh v
         }
+
+backward :: (Num a) => Value a -> Value a
+backward = go 1
+  where
+    go :: (Num a) => a -> Value a -> Value a
+    go grad v@Value{op = OpNone} =
+        let grad' = v.grad + grad
+         in v{grad = grad'}
+    go grad v@Value{op = OpAdd c1 c2} =
+        let grad' = v.grad + grad
+         in v{grad = grad', op = OpAdd (go grad' c1) (go grad' c2)}
+    go grad v@Value{op = OpMultiply c1 c2} =
+        let grad' = v.grad + grad
+            c1grad = grad' * c2.v
+            c2grad = grad' * c1.v
+         in v{grad = grad', op = OpMultiply (go c1grad c1) (go c2grad c2)}
+    go _ _ = undefined
